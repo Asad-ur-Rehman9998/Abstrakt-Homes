@@ -20,13 +20,13 @@ const Header = () => {
       name: 'Product', 
       href: '#category',
       dropdown: [
-        { name: 'UPVC Doors and Windows', href: '/upvc-doors-windows' },
+        { name: 'uPVC Doors and Windows', href: '/upvc-doors-windows' },
         { name: 'Aluminium doors and windows', href: '/aluminium-doors-windows' },
         { name: 'Hardware', href: '/hardware' },
         { name: 'Profiles', href: '/profiles' }
       ]
     },
-    { name: 'Certificate', href: '#certificate' },
+    // { name: 'Certificate', href: '#certificate' },
     { name: 'Contact', href: '#contact' }
   ];
 
@@ -41,9 +41,9 @@ const Header = () => {
             <div className="flex-shrink-0">
               <a href="#" className="flex items-center space-x-2">
                 <img 
-                  src="/Logo.png" 
+                  src="\images\logo.png" 
                   alt="Abstrakt Homes" 
-                  className="h-12 w-auto"
+                  className="h-20 w-auto"
                 />
               </a>
             </div>

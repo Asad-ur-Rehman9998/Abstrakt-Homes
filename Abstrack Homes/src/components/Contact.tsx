@@ -31,8 +31,7 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Create new message object
+
     const newMessage: Message = {
       id: Date.now().toString(),
       name: formData.name,
@@ -44,12 +43,10 @@ const Contact = () => {
       status: 'unread'
     };
 
-    // Save to localStorage for admin dashboard
     const existingMessages = JSON.parse(localStorage.getItem('adminMessages') || '[]');
     existingMessages.push(newMessage);
     localStorage.setItem('adminMessages', JSON.stringify(existingMessages));
 
-    // Show success message
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 3000);
     setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -58,28 +55,33 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: <Phone className="w-6 h-6" />,
-      title: "Phone",
+      title: "Sales Team",
       details: "+92 305 7799977",
       link: "tel:+923057799977"
     },
     {
+      icon: <Phone className="w-6 h-6" />,
+      title: "CEO",
+      details: "+92 305 4553553",
+      link: "tel:+923054553553"
+    },
+    {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: "info@abstrkhomes.com",
-      link: "mailto:info@abstrkhomes.com"
+      details: "info@abstrakthomes.com",
+      link: "mailto:info@abstrakthomes.com"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      details: "Lahore, Pakistan",
-      link: "#"
+      details: "127-A, Main Commercial Broadway DHA Phase 8, Lahore, 54000",
+      link: "https://www.google.com/maps/dir/?api=1&destination=127-A,+Main+Commercial+Broadway,+DHA+Phase+8,+Lahore+54000"
     }
   ];
 
   return (
     <section id="contact" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Get In Touch
@@ -91,10 +93,9 @@ const Contact = () => {
 
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
-              
+
               {isSubmitted && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3">
                   <CheckCircle className="w-5 h-5 text-green-600" />
@@ -127,7 +128,7 @@ const Contact = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <input
@@ -174,14 +175,14 @@ const Contact = () => {
               </form>
             </div>
 
-            {/* Contact Info & Map */}
             <div className="space-y-8">
-              {/* Contact Cards */}
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
                   <a
                     key={index}
                     href={info.link}
+                    target={info.title === "Location" ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
                     className="block bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
                   >
                     <div className="flex items-center space-x-4">
@@ -197,14 +198,13 @@ const Contact = () => {
                 ))}
               </div>
 
-              {/* Map */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+              <div className="bg-white rounded-2xl shadow-lg overflow-hidden relative">
                 <div className="p-6 border-b border-gray-200">
                   <h4 className="text-xl font-semibold text-gray-900">Our Location</h4>
                 </div>
-                <div className="h-64">
+                <div className="h-64 relative">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13614.234900899848!2d74.3208316!3d31.5497001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391904dd0200aaab%3A0x6f9a61479f39a61c!2sLahore%2C%20Pakistan!5e0!3m2!1sen!2s!4v1691219298253!5m2!1sen!2s"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13614.22569336532!2d74.4192506!3d31.4825001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39191a0dc2e7e68d%3A0x9f6a62329f432f86!2s127-A%2C%20Main%20Commercial%20Broadway%2C%20DHA%20Phase%208%2C%20Lahore%2054000!5e0!3m2!1sen!2s!4v1730621000000!5m2!1sen!2s"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -212,6 +212,15 @@ const Contact = () => {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
+
+                  {/* Clickable overlay for starting location */}
+                  <a
+                    href="https://www.google.com/maps/dir/?api=1&destination=127-A,+Main+Commercial+Broadway,+DHA+Phase+8,+Lahore+54000"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0"
+                    aria-label="Open directions to Abstrakt Homes on Google Maps"
+                  ></a>
                 </div>
               </div>
             </div>

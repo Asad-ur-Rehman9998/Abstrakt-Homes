@@ -30,7 +30,7 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <img 
-                src="/Logo.png" 
+                src="public\images\logo.png" 
                 alt="Abstrakt Homes" 
                 className="h-10 w-auto"
               />
@@ -112,7 +112,7 @@ const Footer = () => {
                 <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-blue-600 transition-colors">
                   <Mail className="w-4 h-4" />
                 </div>
-                <span>info@abstrkhomes.com</span>
+                <span>info@abstrakthomes.com</span>
               </a>
               <div className="flex items-center space-x-3 text-gray-400">
                 <div className="p-2 bg-gray-800 rounded-lg">
@@ -127,12 +127,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-2 text-gray-400">
-              <span>Created with</span>
-              <Heart className="w-4 h-4 text-red-500" />
-              <span>by</span>
-              <span className="text-white font-semibold">Asad-ur-Rahman</span>
-            </div>
+            <div className="flex items-center space-x-2 text-gray-400 text-sm">
+  <span>All TradeMarks, Logos And Brand Names Are The Property Of Their Respective Owners.</span>
+</div>
             <div className="text-gray-400 text-sm">
               © 2024 Abstrakt Homes. All rights reserved.
             </div>

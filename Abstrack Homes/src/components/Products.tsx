@@ -7,7 +7,7 @@ const Products = () => {
       id: 1,
       title: "PVC Window",
       description: "Energy Efficiency: Excellent thermal insulation due to multi-chambered frames and compatibility with double or triple glazing, reducing heat loss and energy bills. Durable and low maintenance.",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "./images/pvcwindow.jpg",
       icon: <Shield className="w-8 h-8" />,
       features: ["Energy Efficient", "Low Maintenance", "Durable"]
     },
