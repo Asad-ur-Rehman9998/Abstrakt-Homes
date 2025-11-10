@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
-interface Message {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  subject: string;
-  message: string;
-  timestamp: Date;
-  status: 'unread' | 'read' | 'replied';
-}
+// interface Message {
+//   id: string;
+//   name: string;
+//   email: string;
+//   phone: string;
+//   subject: string;
+//   message: string;
+//   timestamp: Date;
+//   status: 'unread' | 'read' | 'replied';
+// }
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -29,27 +30,31 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      name: formData.name,
-      email: formData.email,
-      phone: formData.phone,
-      subject: formData.subject,
-      message: formData.message,
-      timestamp: new Date(),
-      status: 'unread'
-    };
+    try {
+      const result = await emailjs.send(
+        "service_nxkb9t4",     // 🔹 Replace this
+        "template_p49wow8",    // 🔹 Replace this
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message
+        },
+        "dJ8Oo5s8vl2Tf9SWB"      // 🔹 Replace this
+      );
 
-    const existingMessages = JSON.parse(localStorage.getItem('adminMessages') || '[]');
-    existingMessages.push(newMessage);
-    localStorage.setItem('adminMessages', JSON.stringify(existingMessages));
-
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      console.log("Email sent:", result.text);
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 3000);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send message. Please try again later.");
+    }
   };
 
   const contactInfo = [
@@ -75,7 +80,7 @@ const Contact = () => {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
       details: "127-A, Main Commercial Broadway DHA Phase 8, Lahore, 54000",
-      link: "https://www.google.com/maps/dir/?api=1&destination=127-A,+Main+Commercial+Broadway,+DHA+Phase+8,+Lahore+54000"
+      link: "https://www.google.com/maps/dir//127-A,+Main+Commercial+Broadway+DHA+Phase+8,+Lahore,+54000/@31.4933248,74.399744,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39191da2256ab8e9:0xffcbd308126f8f41!2m2!1d74.4288754!2d31.5029087?hl=en-GB&authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D"
     }
   ];
 
@@ -105,65 +110,55 @@ const Contact = () => {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Your Name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email Address"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <input
-                      type="tel"
-                      name="phone"
-                      placeholder="Phone Number"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      name="subject"
-                      placeholder="Subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    rows={5}
-                    value={formData.message}
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  />
+                  <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
-                  ></textarea>
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  />
                 </div>
+
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
+                ></textarea>
 
                 <button
                   type="submit"
@@ -213,9 +208,8 @@ const Contact = () => {
                     referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
 
-                  {/* Clickable overlay for starting location */}
                   <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=127-A,+Main+Commercial+Broadway,+DHA+Phase+8,+Lahore+54000"
+                    href="https://www.google.com/maps/dir//127-A,+Main+Commercial+Broadway+DHA+Phase+8,+Lahore,+54000/@31.4933248,74.399744,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39191da2256ab8e9:0xffcbd308126f8f41!2m2!1d74.4288754!2d31.5029087?hl=en-GB&authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute inset-0"

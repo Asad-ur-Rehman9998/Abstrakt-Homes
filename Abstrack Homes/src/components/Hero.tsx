@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -19,22 +20,22 @@ const Hero = () => {
         <div className="max-w-4xl">
           <div className="animate-fade-in-up">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Let's the Light
+              Let the Light
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
               in, keep  
               </span>
               the choas out
             </h1>
             <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
-              style and silence in every frame
+              Style and silence in every frame
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+              <Link to="/category-layout" className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                 Explore Products
-              </button>
-              <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300">
+              </Link>
+              {/* <Link  to="#contact" className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300">
                 Get Quote
-              </button>
+              </Link> */}
             </div>
           </div>
         </div>

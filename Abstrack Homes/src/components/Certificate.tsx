@@ -77,7 +77,7 @@ const Certificate = () => {
                   <div className="text-sm text-gray-600">Projects Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-1">100%</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-1">98%</div>
                   <div className="text-sm text-gray-600">Client Satisfaction</div>
                 </div>
               </div>
