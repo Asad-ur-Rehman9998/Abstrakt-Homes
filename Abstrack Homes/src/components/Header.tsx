@@ -42,12 +42,12 @@ const Header = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 overflow-hidden">
               <Link to="/" className="flex items-center space-x-2" aria-label="Go to homepage">
                 <img
                   src="/images/logo.png"
                   alt="Abstrakt Homes - Premium Windows and Doors"
-                  className="h-20 w-auto"
+                  className="h-12 sm:h-14 lg:h-16 w-auto max-h-20"
                   loading="eager"
                 />
               </Link>
@@ -76,7 +76,7 @@ const Header = () => {
                     </Link>
                   )}
                   {item.dropdown && (
-                    <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                    <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 z-50">
                       {item.dropdown.map((subItem) => (
                         <Link
                           key={subItem.name}

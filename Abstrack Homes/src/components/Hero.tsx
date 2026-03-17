@@ -24,7 +24,7 @@ const Hero = () => {
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
               in, keep  
               </span>
-              the choas out
+              the chaos out
             </h1>
             <p className="text-xl sm:text-2xl text-gray-200 mb-8 max-w-2xl leading-relaxed">
               Style and silence in every frame

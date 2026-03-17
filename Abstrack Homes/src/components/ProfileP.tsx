@@ -101,6 +101,13 @@ const ProfilesContent: React.FC<ProfilesContentProps> = ({
     { icon: <Flame className="w-8 h-8" />, title: 'Fire Resistant', description: 'Resists ignition and minimizes fire spread' },
   ];
 
+  const brochureUrls: Record<Brand, string> = {
+    ASAS: '/images/ASAŞPEN Genel Katalog.pdf',
+    Deceuninck: '/images/Deceuninck Brochure(1).pdf',
+  };
+
+  const getBrochureLink = (brand: Brand) => encodeURI(brochureUrls[brand]);
+
   useEffect(() => {
     return () => {
       if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
@@ -132,8 +139,25 @@ const ProfilesContent: React.FC<ProfilesContentProps> = ({
       <div className="text-gray-900 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-24 pb-4">
         {/* Brand Selector */}
         <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">Select Profile Brand</h2>
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900">Select Profile Brand</h2>
+              <div className="flex items-center gap-2">
+                {(['ASAS', 'Deceuninck'] as Brand[]).map((brand) => (
+                  <a
+                    key={`brochure-${brand}`}
+                    href={getBrochureLink(brand)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-2 px-2 py-2 rounded-lg border text-sm font-medium shadow-sm transition ${activeBrand === brand ? 'border-green-600 bg-green-50 text-green-700' : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-100'}`}
+                    aria-label={`Open ${brand} brochure`}
+                  >
+                    <span className="text-xl">📄</span>
+                    <span className="hidden sm:inline">{brand}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
 
             <div className="flex justify-center space-x-6 mb-12">
               {(['ASAS', 'Deceuninck'] as Brand[]).map((brand) => (
