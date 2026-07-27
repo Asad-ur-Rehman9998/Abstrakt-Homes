@@ -1,115 +1,128 @@
-import React from "react";
-import { ArrowRight, Shield, Zap, Settings, Layers } from "lucide-react";
-import { Link } from "react-router-dom";
-import products from "../data/products";
+import { motion } from 'framer-motion';
+import { ArrowRight, Shield, Zap, Settings, Layers, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import products from '../data/products';
+import AnimatedSection from './ui/AnimatedSection';
+import TiltCard from './ui/TiltCard';
+
+const getCategoryIcon = (category: string) => {
+  switch (category) {
+    case 'upvc':
+      return Shield;
+    case 'aluminium':
+      return Zap;
+    case 'hardware':
+      return Settings;
+    case 'profiles':
+      return Layers;
+    default:
+      return Shield;
+  }
+};
 
 const Products = () => {
-  // Select one featured product from each main category
   const featuredProducts = [
-    products.find(p => p.category === 'upvc') ?? products[0], // uPVC product
-    products.find(p => p.category === 'aluminium') ?? products[1], // Aluminium product
-    products.find(p => p.category === 'hardware') ?? products[2], // Hardware product
+    products.find((p) => p.category === 'upvc') ?? products[0],
+    products.find((p) => p.category === 'aluminium') ?? products[1],
+    products.find((p) => p.category === 'hardware') ?? products[2],
   ];
 
-  // Map category to icon for visual consistency
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'upvc':
-        return <Shield className="w-8 h-8" />;
-      case 'aluminium':
-        return <Zap className="w-8 h-8" />;
-      case 'hardware':
-        return <Settings className="w-8 h-8" />;
-      case 'profiles':
-        return <Layers className="w-8 h-8" />;
-      default:
-        return <Shield className="w-8 h-8" />;
-    }
-  };
-
   return (
-    <section id="category" className="py-12 sm:py-16 lg:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-14 lg:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+    <AnimatedSection id="category" className="py-24 lg:py-32 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(201,169,98,0.04),transparent_60%)]" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="text-center mb-16">
+          <span className="text-gold-600 text-sm font-medium tracking-[0.25em] uppercase">Featured</span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-900 mt-4 mb-6">
             Our Products
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Discover our premium range of upvc doors and windows designed for modern living
           </p>
         </div>
 
-        {/* Featured Products Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {featuredProducts.map((product, index) => (
-            <Link
-              to={`/product/${product.id}`}
-              key={product.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden transform hover:-translate-y-2"
-              style={{
-                animationDelay: `${index * 200}ms`,
-              }}
-            >
-              {/* Image Container */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
-                <img
-                  src={product.image}
-                  alt={product.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProducts.map((product, index) => {
+            const Icon = getCategoryIcon(product.category);
+            return (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.15 }}
+              >
+                <TiltCard className="group h-full">
+                  <Link to={`/product/${product.id}`} className="block h-full">
+                    <div className="relative h-full bg-white rounded-2xl overflow-hidden shadow-glass hover:shadow-luxury transition-all duration-500 border border-gray-100">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Category Icon Overlay */}
-                <div className="absolute top-3 right-3 p-2 sm:p-3 bg-white/90 backdrop-blur-sm rounded-full text-blue-600 transform translate-x-10 group-hover:translate-x-0 transition-transform duration-300">
-                  {getCategoryIcon(product.category)}
-                </div>
-              </div>
+                        <div className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-xl text-gold-600 transform translate-x-12 group-hover:translate-x-0 transition-transform duration-300">
+                          <Icon className="w-6 h-6" />
+                        </div>
 
-              {/* Content */}
-              <div className="p-4 sm:p-6 flex flex-col h-full">
-                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors">
-                  {product.title}
-                </h3>
-                <p className="text-gray-600 mb-2 sm:mb-4 leading-relaxed line-clamp-2">
-                  {product.description}
-                </p>
+                        {/* Quick view overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="flex items-center gap-2 px-5 py-2.5 bg-white/90 backdrop-blur-sm rounded-full text-navy-900 text-sm font-semibold">
+                            <Eye className="w-4 h-4" />
+                            Quick View
+                          </span>
+                        </div>
+                      </div>
 
-                {/* Features */}
-                {product.features && product.features.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                    {product.features.map((feature, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-100 text-blue-600 text-xs sm:text-sm rounded-full font-medium"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-navy-900 mb-2 group-hover:text-gold-600 transition-colors">
+                          {product.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm leading-relaxed line-clamp-2 mb-4">
+                          {product.description}
+                        </p>
 
-                {/* CTA Button */}
-                <div className="flex items-center space-x-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors group/btn mt-auto">
-                  <span className="text-sm sm:text-base">Learn More</span>
-                  <ArrowRight className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-          ))}
+                        {product.features && product.features.length > 0 && (
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {product.features.map((feature, idx) => (
+                              <span
+                                key={idx}
+                                className="px-3 py-1 bg-gold-500/10 text-gold-700 text-xs rounded-full font-medium"
+                              >
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="flex items-center gap-2 text-gold-600 font-semibold text-sm">
+                          <span>Learn More</span>
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </TiltCard>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* View All Products CTA */}
-        <div className="text-center mt-10 sm:mt-14 lg:mt-16">
+        <div className="text-center mt-16">
           <Link
             to="/category-layout"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl text-base sm:text-lg"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-navy-900 text-gold-400 font-semibold rounded-xl hover:bg-navy-800 transition-all shadow-luxury hover:shadow-luxury-lg"
           >
             View All Products
+            <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 

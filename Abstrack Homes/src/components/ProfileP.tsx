@@ -228,7 +228,7 @@ const ProfilesContent: React.FC<ProfilesContentProps> = ({
                               <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-2 sm:gap-0 mt-auto">
                                 <span className="text-lg font-semibold text-green-600">{product.price}</span>
                                 <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition w-full sm:w-auto text-center">
-                                  Get Quote
+                                  Contact Us
                                 </button>
                               </div>
                             </div>
@@ -283,7 +283,7 @@ const ProfilesContent: React.FC<ProfilesContentProps> = ({
             to="/#contact"
             className="inline-block px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
           >
-            Get Free Quote
+            Contact Us
           </Link>
         </section>
       </div>

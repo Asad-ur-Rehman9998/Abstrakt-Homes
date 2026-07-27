@@ -1,189 +1,188 @@
-import React, { useState } from 'react';
-import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin } from 'lucide-react';
+import { useState } from 'react';
+import { Facebook, Instagram, Linkedin, Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useScrollNavigation } from '../utils/scrollNavigation';
 
 const Footer = () => {
-  const [activeLink, setActiveLink] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
   const handleNavigation = useScrollNavigation();
 
   const socialLinks = [
-    { 
-      icon: <Facebook className="w-5 h-5" />,
-      href: "https://www.facebook.com/profile.php?id=100009858330366",
-      name: "Facebook",
-      ariaLabel: "Visit our Facebook page"
+    {
+      icon: Facebook,
+      href: 'https://www.facebook.com/profile.php?id=100009858330366',
+      name: 'Facebook',
+      ariaLabel: 'Visit our Facebook page',
     },
-    { 
-      icon: <Instagram className="w-5 h-5" />,
-      href: "https://www.instagram.com/abstrakthomes",
-      name: "Instagram",
-      ariaLabel: "Follow us on Instagram"
+    {
+      icon: Instagram,
+      href: 'https://www.instagram.com/abstrakthomes',
+      name: 'Instagram',
+      ariaLabel: 'Follow us on Instagram',
     },
-    { 
-      icon: <Linkedin className="w-5 h-5" />,
-      href: "https://www.linkedin.com/company/abstrakt-homes",
-      name: "LinkedIn",
-      ariaLabel: "Connect with us on LinkedIn"
+    {
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/company/abstrakt-homes',
+      name: 'LinkedIn',
+      ariaLabel: 'Connect with us on LinkedIn',
     },
   ];
 
   const quickLinks = [
-    { name: "Home", href: "/" },
-    { name: "Products", href: "/category-layout" },
-    { name: "Certificate", href: "/#certificate" },
-    { name: "Contact", href: "/#contact" },
+    { name: 'Home', href: '/' },
+    { name: 'Products', href: '/category-layout' },
+    { name: 'About', href: '/#about' },
+    { name: 'Gallery', href: '/#gallery' },
+    { name: 'Certificate', href: '/#certificate' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
-  const products = [
-    { name: "uPVC", href: "/upvc-doors-windows" },
-    { name: "Aluminium", href: "/aluminium-doors-windows" },
-    { name: "Hardware", href: "/hardware" },
-    { name: "Profiles", href: "/profiles" },
+  const productLinks = [
+    { name: 'uPVC Doors & Windows', href: '/upvc-doors-windows' },
+    { name: 'Aluminium Systems', href: '/aluminium-doors-windows' },
+    { name: 'ASSA ABLOY Hardware', href: '/hardware' },
+    { name: 'Deceuninck Profiles', href: '/profiles' },
   ];
+
+  const handleNewsletter = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      window.location.href = `mailto:info@abstrakthomes.com?subject=Newsletter Subscription&body=Please subscribe ${email} to the newsletter.`;
+      setEmail('');
+    }
+  };
 
   return (
-    <footer className="bg-gray-900 text-white scroll-smooth">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* ✅ Company Info */}
-          <div className="space-y-6">
-            <div className="flex items-center space-x-2">
-              <img 
-                src="/images/logo.png" 
-                alt="Abstrakt Homes - Premium Windows and Doors" 
-                className="h-10 w-auto"
-                loading="lazy"
-              />
-            </div>
-            <p className="text-gray-400 leading-relaxed">
-              Abstrakt Homes — Premium architectural solutions for modern living.  
+    <footer className="bg-navy-950 text-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,98,0.05),transparent_60%)]" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+          {/* Company info */}
+          <div className="lg:col-span-4 space-y-6">
+            <img
+              src="/images/logo.png"
+              alt="Abstrakt Homes - Premium Windows and Doors"
+              className="h-14 w-auto brightness-0 invert"
+              loading="lazy"
+            />
+            <p className="text-gray-400 leading-relaxed max-w-sm">
+              Abstrakt Homes — Premium architectural solutions for modern living.
               We specialize in high-quality PVC windows, aluminum frames, and premium hardware.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-3">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-gray-800 rounded-lg hover:bg-blue-600 transition-colors duration-300 group"
+                  className="p-3 bg-white/5 rounded-xl hover:bg-gold-500/20 hover:text-gold-400 transition-all duration-300 border border-white/10"
                   aria-label={social.ariaLabel}
                 >
-                  <div className="group-hover:scale-110 transition-transform" role="img" aria-hidden="true">
-                    {social.icon}
-                  </div>
-                  <span className="sr-only">{social.name}</span>
+                  <social.icon className="w-5 h-5" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* ✅ Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
+          {/* Quick Links */}
+          <div className="lg:col-span-2">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-gold-400 mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => {
-                      handleNavigation(link.href);
-                      setActiveLink(link.href);
-                    }}
-                    className={`text-gray-400 hover:text-white transition-colors duration-300 flex items-center group ${
-                      activeLink === link.href ? "text-blue-400 rotate-1" : ""
-                    }`}
-                  >
-                    <span
-                      className={`w-2 h-2 bg-blue-600 rounded-full mr-3 transition-all duration-300 ${
-                        activeLink === link.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                      }`}
-                    ></span>
-                    {link.name}
-                  </button>
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  {link.href.startsWith('/#') ? (
+                    <button
+                      onClick={() => handleNavigation(link.href)}
+                      className="text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.name}
+                    </button>
+                  ) : (
+                    <Link to={link.href} className="text-gray-400 hover:text-white transition-colors text-sm">
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ✅ Products */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Products</h3>
+          {/* Products */}
+          <div className="lg:col-span-2">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-gold-400 mb-6">Products</h3>
             <ul className="space-y-3">
-              {products.map((product, index) => (
-                <li key={index}>
-                  <button
-                    onClick={() => {
-                      handleNavigation(product.href);
-                      setActiveLink(product.href);
-                    }}
-                    className={`text-gray-400 hover:text-white transition-colors duration-300 flex items-center group ${
-                      activeLink === product.href ? "text-purple-400 rotate-1" : ""
-                    }`}
-                  >
-                    <span
-                      className={`w-2 h-2 bg-purple-600 rounded-full mr-3 transition-all duration-300 ${
-                        activeLink === product.href ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                      }`}
-                    ></span>
+              {productLinks.map((product) => (
+                <li key={product.name}>
+                  <Link to={product.href} className="text-gray-400 hover:text-white transition-colors text-sm">
                     {product.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ✅ Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6">Contact Info</h3>
+          {/* Contact */}
+          <div className="lg:col-span-4 space-y-6">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-gold-400 mb-2">Contact Info</h3>
             <div className="space-y-4">
-              <a
-                href="tel:+923057799977"
-                className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-300 group"
-                aria-label="Call us at +92 305 7799977"
-              >
-                <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-blue-600 transition-colors">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <span>+92 305 7799977</span>
+              <a href="tel:+923057799977" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm group">
+                <Phone className="w-4 h-4 text-gold-400" />
+                +92 305 7799977 (Sales)
               </a>
-
-              <a
-                href="mailto:info@abstrakthomes.com"
-                className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-300 group"
-                aria-label="Email us at info@abstrakthomes.com"
-              >
-                <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-blue-600 transition-colors">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <span>info@abstrakthomes.com</span>
+              <a href="tel:+923054553553" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm group">
+                <Phone className="w-4 h-4 text-gold-400" />
+                +92 305 4553553 (CEO)
               </a>
-
+              <a href="mailto:info@abstrakthomes.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm">
+                <Mail className="w-4 h-4 text-gold-400" />
+                info@abstrakthomes.com
+              </a>
               <a
-                href="https://maps.google.com/?q=Lahore,Pakistan"
+                href="https://maps.google.com/?q=127-A+Main+Commercial+Broadway+DHA+Phase+8+Lahore"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors duration-300 group"
-                aria-label="Find us on Google Maps in Lahore, Pakistan"
+                className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors text-sm"
               >
-                <div className="p-2 bg-gray-800 rounded-lg group-hover:bg-blue-600 transition-colors">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span>Lahore, Pakistan</span>
+                <MapPin className="w-4 h-4 text-gold-400 flex-shrink-0 mt-0.5" />
+                127-A, Main Commercial Broadway DHA Phase 8, Lahore, 54000
               </a>
+              <div className="flex items-center gap-3 text-gray-400 text-sm">
+                <Clock className="w-4 h-4 text-gold-400" />
+                Mon – Sat: 9:00 AM – 6:00 PM
+              </div>
             </div>
+
+            {/* Newsletter */}
+            <form onSubmit={handleNewsletter} className="mt-6">
+              <p className="text-sm text-gray-400 mb-3">Subscribe to our newsletter</p>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email"
+                  required
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:border-gold-500/50 outline-none transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2.5 bg-gold-500 text-navy-900 rounded-xl hover:bg-gold-400 transition-colors"
+                  aria-label="Subscribe to newsletter"
+                >
+                  <Send className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
           </div>
         </div>
 
-        {/* ✅ Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 text-sm">
-              All trademarks, logos, and brand names are the property of their respective owners.
-            </div>
-            <div className="text-gray-400 text-sm">
-              © 2025 Abstrakt Homes. All rights reserved.
-            </div>
-          </div>
+        <div className="border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-500 text-xs text-center md:text-left">
+            All trademarks, logos, and brand names are the property of their respective owners.
+          </p>
+          <p className="text-gray-500 text-xs">© 2025 Abstrakt Homes. All rights reserved.</p>
         </div>
       </div>
     </footer>

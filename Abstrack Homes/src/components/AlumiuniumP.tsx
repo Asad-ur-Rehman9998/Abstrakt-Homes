@@ -229,8 +229,7 @@ const AluminiumContent: React.FC<AluminiumContentProps> = ({ showViewAll = false
     {
       id: 1,
       name: "Aluminium Sliding Windows",
-      image:
-        "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/alu 1.png",
       description:
         "Sleek sliding windows with smooth operation and modern aesthetics for contemporary buildings.",
       features: ["Smooth sliding", "Corrosion resistant", "Lightweight", "Modern design"],
@@ -239,8 +238,7 @@ const AluminiumContent: React.FC<AluminiumContentProps> = ({ showViewAll = false
     {
       id: 2,
       name: "Aluminium Casement Windows",
-      image:
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement 3.jpg",
       description:
         "Durable casement windows with excellent ventilation and security features.",
       features: ["Excellent ventilation", "High security", "Weather resistant", "Easy maintenance"],
@@ -258,9 +256,11 @@ const AluminiumContent: React.FC<AluminiumContentProps> = ({ showViewAll = false
   return (
     <div className="text-gray-900">
       {/* Hero */}
-      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">Aluminium Doors & Windows</h1>
+      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-navy-900 text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,98,0.08),transparent_60%)]" />
+        <div className="container mx-auto px-4 relative">
+          <span className="text-gold-400 text-sm tracking-[0.25em] uppercase">Architectural</span>
+          <h1 className="font-display text-3xl sm:text-5xl font-bold mb-4 mt-2">Aluminium Doors & Windows</h1>
           <p className="text-sm sm:text-lg max-w-2xl mx-auto">
             Modern aluminium solutions offering strength, durability, and style.
           </p>

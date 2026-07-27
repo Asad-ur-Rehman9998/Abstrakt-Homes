@@ -20,8 +20,7 @@ const UPVCContent: React.FC<UPVCContentProps> = ({
     {
       id: 1,
       name: "uPVC Sliding Windows",
-      image:
-        "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/sliding 2.jpg",
       description:
         "Sleek sliding windows with smooth operation and modern aesthetics for contemporary buildings.",
       features: ["Smooth sliding", "Corrosion resistant", "Lightweight", "Modern design"],
@@ -30,8 +29,7 @@ const UPVCContent: React.FC<UPVCContentProps> = ({
     {
       id: 2,
       name: "uPVC Casement Windows",
-      image:
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement.jpg",
       description:
         "Durable casement windows with excellent ventilation and security features.",
       features: ["Excellent ventilation", "High security", "Weather resistant", "Easy maintenance"],
@@ -40,8 +38,7 @@ const UPVCContent: React.FC<UPVCContentProps> = ({
     {
       id: 3,
       name: "uPVC Curtain Wall",
-      image:
-        "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/outdoor-sofa-with-beige-cushions-coffee-table-front-restaurant-window.jpg",
       description:
         "Commercial grade curtain wall systems for modern office buildings and high-rises.",
       features: ["Commercial grade", "Structural glazing", "Energy efficient", "Weather sealed"],
@@ -50,8 +47,7 @@ const UPVCContent: React.FC<UPVCContentProps> = ({
     {
       id: 4,
       name: "uPVC Folding Doors",
-      image:
-        "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/French doors.png",
       description:
         "Space-saving folding doors perfect for patios and large openings.",
       features: ["Space saving", "Large openings", "Smooth operation", "Durable hinges"],
@@ -69,9 +65,11 @@ const UPVCContent: React.FC<UPVCContentProps> = ({
   return (
     <div className="min-h-screen bg-gray-50 pb-5">
       {/* HERO SECTION */}
-      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">uPVC Doors & Windows</h1>
+      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-navy-900 text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,98,0.08),transparent_60%)]" />
+        <div className="container mx-auto px-4 relative">
+          <span className="text-gold-400 text-sm tracking-[0.25em] uppercase">Deceuninck</span>
+          <h1 className="font-display text-3xl sm:text-5xl font-bold mb-4 mt-2">uPVC Doors & Windows</h1>
           <p className="text-sm sm:text-lg max-w-2xl mx-auto">
             Modern uPVC solutions offering strength, durability, and style.
           </p>

@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import emailjs from 'emailjs-com';
-
-// interface Message {
-//   id: string;
-//   name: string;
-//   email: string;
-//   phone: string;
-//   subject: string;
-//   message: string;
-//   timestamp: Date;
-//   status: 'unread' | 'read' | 'replied';
-// }
+import AnimatedSection from './ui/AnimatedSection';
+import { FloatingInput, FloatingTextarea } from './ui/FloatingInput';
+import MagneticButton from './ui/MagneticButton';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -19,15 +13,12 @@ const Contact = () => {
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,193 +26,208 @@ const Contact = () => {
 
     try {
       const result = await emailjs.send(
-        "service_nxkb9t4",     // 🔹 Replace this
-        "template_p49wow8",    // 🔹 Replace this
+        'service_nxkb9t4',
+        'template_p49wow8',
         {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           subject: formData.subject,
-          message: formData.message
+          message: formData.message,
         },
-        "dJ8Oo5s8vl2Tf9SWB"      // 🔹 Replace this
+        'dJ8Oo5s8vl2Tf9SWB'
       );
 
-      console.log("Email sent:", result.text);
+      console.log('Email sent:', result.text);
       setIsSubmitted(true);
       setTimeout(() => setIsSubmitted(false), 3000);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
     } catch (error) {
-      console.error("Error sending email:", error);
-      alert("Failed to send message. Please try again later.");
+      console.error('Error sending email:', error);
+      alert('Failed to send message. Please try again later.');
     }
   };
 
   const contactInfo = [
     {
-      icon: <Phone className="w-6 h-6" />,
-      title: "Sales Team",
-      details: "+92 305 7799977",
-      link: "tel:+923057799977"
+      icon: Phone,
+      title: 'Sales Team',
+      details: '+92 305 7799977',
+      link: 'tel:+923057799977',
     },
     {
-      icon: <Phone className="w-6 h-6" />,
-      title: "CEO",
-      details: "+92 305 4553553",
-      link: "tel:+923054553553"
+      icon: Phone,
+      title: 'CEO',
+      details: '+92 305 4553553',
+      link: 'tel:+923054553553',
     },
     {
-      icon: <Mail className="w-6 h-6" />,
-      title: "Email",
-      details: "info@abstrakthomes.com",
-      link: "mailto:info@abstrakthomes.com"
+      icon: Mail,
+      title: 'Email',
+      details: 'info@abstrakthomes.com',
+      link: 'mailto:info@abstrakthomes.com',
     },
     {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      details: "127-A, Main Commercial Broadway DHA Phase 8, Lahore, 54000",
-      link: "https://www.google.com/maps/dir//127-A,+Main+Commercial+Broadway+DHA+Phase+8,+Lahore,+54000/@31.4933248,74.399744,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39191da2256ab8e9:0xffcbd308126f8f41!2m2!1d74.4288754!2d31.5029087?hl=en-GB&authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D"
-    }
+      icon: MapPin,
+      title: 'Location',
+      details: '127-A, Main Commercial Broadway DHA Phase 8, Lahore, 54000',
+      link: 'https://www.google.com/maps/dir//127-A,+Main+Commercial+Broadway+DHA+Phase+8,+Lahore,+54000/@31.4933248,74.399744,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39191da2256ab8e9:0xffcbd308126f8f41!2m2!1d74.4288754!2d31.5029087?hl=en-GB&authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D',
+    },
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="contact" className="py-24 lg:py-32 bg-navy-900 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,98,0.06),transparent_50%)]" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <span className="text-gold-400 text-sm font-medium tracking-[0.25em] uppercase">Contact</span>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mt-4 mb-6">
             Get In Touch
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Ready to start your project? Contact us today for a consultation
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-white rounded-2xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10 p-8 shadow-luxury"
+          >
+            <h3 className="text-2xl font-bold text-white mb-6">Send us a message</h3>
 
-              {isSubmitted && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-600" />
-                  <span className="text-green-700">Message sent successfully!</span>
-                </div>
-              )}
+            {isSubmitted && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center gap-3"
+              >
+                <CheckCircle className="w-5 h-5 text-green-400" />
+                <span className="text-green-400">Message sent successfully!</span>
+              </motion.div>
+            )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-
-                <textarea
-                  name="message"
-                  placeholder="Your Message"
-                  rows={5}
-                  value={formData.message}
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FloatingInput
+                  id="name"
+                  label="Your Name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none"
-                ></textarea>
-
-                <button
-                  type="submit"
-                  className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2"
-                >
-                  <span>Send Message</span>
+                />
+                <FloatingInput
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FloatingInput
+                  id="phone"
+                  label="Phone Number"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+                <FloatingInput
+                  id="subject"
+                  label="Subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <FloatingTextarea
+                id="message"
+                label="Your Message"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+              <MagneticButton type="submit">
+                <span className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 font-semibold rounded-xl shadow-glow hover:shadow-luxury transition-all">
+                  Send Message
                   <Send className="w-5 h-5" />
-                </button>
-              </form>
+                </span>
+              </MagneticButton>
+            </form>
+          </motion.div>
+
+          {/* Contact info + map */}
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {contactInfo.map((info, index) => (
+                <motion.a
+                  key={index}
+                  href={info.link}
+                  target={info.title === 'Location' ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="block p-5 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-gold-500/30 hover:bg-white/10 transition-all duration-300 group"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-2.5 bg-gold-500/10 rounded-lg text-gold-400 group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                      <info.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white text-sm">{info.title}</h4>
+                      <p className="text-gray-400 text-sm mt-1">{info.details}</p>
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
             </div>
 
-            <div className="space-y-8">
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => (
-                  <a
-                    key={index}
-                    href={info.link}
-                    target={info.title === "Location" ? "_blank" : "_self"}
-                    rel="noopener noreferrer"
-                    className="block bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 group"
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900">{info.title}</h4>
-                        <p className="text-gray-600">{info.details}</p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
+            {/* WhatsApp CTA */}
+            <a
+              href="https://wa.me/923054553553"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400 hover:bg-green-500/20 transition-all"
+            >
+              <FaWhatsapp className="w-6 h-6" />
+              <span className="font-semibold">Chat on WhatsApp: +92 305 4553553</span>
+            </a>
+
+            {/* Map */}
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-luxury">
+              <div className="p-4 bg-white/5 border-b border-white/10">
+                <h4 className="text-white font-semibold">Our Location</h4>
               </div>
-
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden relative">
-                <div className="p-6 border-b border-gray-200">
-                  <h4 className="text-xl font-semibold text-gray-900">Our Location</h4>
-                </div>
-                <div className="h-64 relative">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13614.22569336532!2d74.4192506!3d31.4825001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39191a0dc2e7e68d%3A0x9f6a62329f432f86!2s127-A%2C%20Main%20Commercial%20Broadway%2C%20DHA%20Phase%208%2C%20Lahore%2054000!5e0!3m2!1sen!2s!4v1730621000000!5m2!1sen!2s"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-
-                  <a
-                    href="https://www.google.com/maps/dir//127-A,+Main+Commercial+Broadway+DHA+Phase+8,+Lahore,+54000/@31.4933248,74.399744,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39191da2256ab8e9:0xffcbd308126f8f41!2m2!1d74.4288754!2d31.5029087?hl=en-GB&authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0"
-                    aria-label="Open directions to Abstrakt Homes on Google Maps"
-                  ></a>
-                </div>
+              <div className="h-64 relative">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13614.22569336532!2d74.4192506!3d31.4825001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39191a0dc2e7e68d%3A0x9f6a62329f432f86!2s127-A%2C%20Main%20Commercial%20Broadway%2C%20DHA%20Phase%208%2C%20Lahore%2054000!5e0!3m2!1sen!2s!4v1730621000000!5m2!1sen!2s"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Abstrakt Homes location on Google Maps"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 };
 

@@ -18,7 +18,7 @@ const HardwareContent: React.FC<HardwareContentProps> = ({
     {
       id: 1,
       name: "Multi-Point Locking Systems",
-      image: "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement 4.jpg",
       description: "Advanced multi-point locking mechanisms for maximum security and smooth operation.",
       features: ["200,000 cycle durability", "Multi-point security", "Smooth operation", "Weather resistant"],
       price: "Contact for pricing",
@@ -26,7 +26,7 @@ const HardwareContent: React.FC<HardwareContentProps> = ({
     {
       id: 2,
       name: "Window Handles & Locks",
-      image: "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement 5.jpg",
       description: "Premium window handles with integrated locking mechanisms for security and ease of use.",
       features: ["Ergonomic design", "Integrated locks", "Corrosion resistant", "Easy installation"],
       price: "Contact for pricing",
@@ -34,7 +34,7 @@ const HardwareContent: React.FC<HardwareContentProps> = ({
     {
       id: 3,
       name: "Door Hinges & Hardware",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement 6.jpg",
       description: "Heavy-duty hinges and door hardware for residential and commercial applications.",
       features: ["Heavy-duty construction", "Adjustable", "Long-lasting", "Professional grade"],
       price: "Contact for pricing",
@@ -42,7 +42,7 @@ const HardwareContent: React.FC<HardwareContentProps> = ({
     {
       id: 4,
       name: "Sealing & Weatherstripping",
-      image: "https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      image: "/images/casement 5.jpg",
       description: "High-quality sealing solutions for energy efficiency and weather protection.",
       features: ["Energy efficient", "Weather protection", "Long-lasting", "Easy installation"],
       price: "Contact for pricing",
@@ -59,9 +59,11 @@ const HardwareContent: React.FC<HardwareContentProps> = ({
   return (
     <div className="text-gray-900">
       {/* Hero */}
-      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-gradient-to-r from-gray-700 to-gray-900 text-white text-center">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl sm:text-5xl font-bold mb-4">Premium Hardware</h1>
+      <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-navy-900 text-white text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,169,98,0.08),transparent_60%)]" />
+        <div className="container mx-auto px-4 relative">
+          <span className="text-gold-400 text-sm tracking-[0.25em] uppercase">ASSA ABLOY</span>
+          <h1 className="font-display text-3xl sm:text-5xl font-bold mb-4 mt-2">Premium Hardware</h1>
           <p className="text-sm sm:text-lg max-w-2xl mx-auto">
             ASSA ABLOY Guoqiang brand hardware engineered for performance, security, and longevity.
           </p>
